@@ -24,7 +24,7 @@ public class CommanderService {
 
     private int launchCommand(String command) {
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command(command);
+        builder.command("sh", "-c", command);
         builder.directory(new File("/home/pirate/"));
         Process process = null;
         try {
