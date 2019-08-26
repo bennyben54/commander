@@ -24,11 +24,12 @@ public class CommanderService {
 
     private int launchCommand(String command) {
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command("sh", "-c", command);
+        builder.command(command);
         builder.directory(new File("/home/pirate/"));
         Process process = null;
         try {
             process = builder.start();
+            System.out.println(command);
             return 0;
         } catch (IOException e) {
             e.printStackTrace();
