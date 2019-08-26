@@ -30,22 +30,14 @@ public class CommanderService {
         try {
             process = builder.start();
             System.out.println(command);
-            return 0;
         } catch (IOException e) {
             e.printStackTrace();
             return -1;
         }
-//        StreamGobbler streamGobbler =
-//                new StreamGobbler(process.getInputStream(), System.out::println);
-//        Executors.newSingleThreadExecutor().submit(streamGobbler);
-//        int exitCode;
-//        try {
-//            exitCode = process.exitValue();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//            return -1;
-//        }
-//        return exitCode;
+        StreamGobbler streamGobbler =
+                new StreamGobbler(process.getInputStream(), System.out::println);
+        Executors.newSingleThreadExecutor().submit(streamGobbler);
+        return process.exitValue();
     }
 
     private static class StreamGobbler implements Runnable {
