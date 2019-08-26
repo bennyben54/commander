@@ -15,7 +15,7 @@ public class CommanderService {
     }
 
     public int launchChromium() {
-        return launchCommand("/home/pirate/launch-chromium &");
+        return launchCommand("export DISPLAY=:0 & chromium-browser \"http://localhost/login\"");
     }
 
     public int stopChromium() {
