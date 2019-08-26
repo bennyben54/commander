@@ -15,29 +15,38 @@ public class CommanderService {
     }
 
     public int launchChromium() {
-        return launchCommand("./launch-chromium &");
+        return launchCommand("/home/pirate/launch-chromium &");
     }
 
     public int stopChromium() {
-        return launchCommand("./stop-chromium");
+        return launchCommand("/home/pirate/stop-chromium");
     }
 
     private int launchCommand(String command) {
-        ProcessBuilder builder = new ProcessBuilder();
-        builder.command("sh", "-c", command);
-        builder.directory(new File("/home/pirate/"));
-        Process process = null;
+
         try {
-            process = builder.start();
+            Runtime.getRuntime().exec(command);
             System.out.println(command);
+            return 0;
         } catch (IOException e) {
             e.printStackTrace();
             return -1;
         }
-        StreamGobbler streamGobbler =
-                new StreamGobbler(process.getInputStream(), System.out::println);
-        Executors.newSingleThreadExecutor().submit(streamGobbler);
-        return process.exitValue();
+
+//        ProcessBuilder builder = new ProcessBuilder();
+//        builder.command("sh", "-c", command);
+//        builder.directory(new File(""));
+//        Process process = null;
+//        try {
+//            process = builder.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return -1;
+//        }
+//        StreamGobbler streamGobbler =
+//                new StreamGobbler(process.getInputStream(), System.out::println);
+//        Executors.newSingleThreadExecutor().submit(streamGobbler);
+//        return process.exitValue();
     }
 
     private static class StreamGobbler implements Runnable {
