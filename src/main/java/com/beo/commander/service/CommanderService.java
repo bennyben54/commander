@@ -15,11 +15,11 @@ public class CommanderService {
     }
 
     public int launchChromium() {
-        return launchCommand("/home/pirate/launch-chromium &");
+        return launchCommand("./launch-chromium &");
     }
 
     public int stopChromium() {
-        return launchCommand("/home/pirate/stop-chromium");
+        return launchCommand("./stop-chromium");
     }
 
     private int launchCommand(String command) {
