@@ -3,9 +3,7 @@ package com.beo.commander.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
+import java.io.IOException;
 
 @Service
 public class CommanderService {
@@ -15,11 +13,11 @@ public class CommanderService {
     }
 
     public int launchChromium() {
-        return launchCommand("export DISPLAY=:0 & chromium-browser \"http://localhost/login\"");
+        return launchCommand("systemctl --user start launch-chromium");
     }
 
     public int stopChromium() {
-        return launchCommand("/home/pirate/stop-chromium");
+        return launchCommand("systemctl --user stop launch-chromium");
     }
 
     private int launchCommand(String command) {
@@ -34,7 +32,7 @@ public class CommanderService {
         }
 
 //        ProcessBuilder builder = new ProcessBuilder();
-//        builder.command("sh", "-c", command);
+//        builder.command(command);
 //        builder.directory(new File(""));
 //        Process process = null;
 //        try {
@@ -49,19 +47,19 @@ public class CommanderService {
 //        return process.exitValue();
     }
 
-    private static class StreamGobbler implements Runnable {
-        private InputStream inputStream;
-        private Consumer<String> consumer;
-
-        public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
-            this.inputStream = inputStream;
-            this.consumer = consumer;
-        }
-
-        @Override
-        public void run() {
-            new BufferedReader(new InputStreamReader(inputStream)).lines()
-                    .forEach(consumer);
-        }
-    }
+//    private static class StreamGobbler implements Runnable {
+//        private InputStream inputStream;
+//        private Consumer<String> consumer;
+//
+//        public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
+//            this.inputStream = inputStream;
+//            this.consumer = consumer;
+//        }
+//
+//        @Override
+//        public void run() {
+//            new BufferedReader(new InputStreamReader(inputStream)).lines()
+//                    .forEach(consumer);
+//        }
+//    }
 }
